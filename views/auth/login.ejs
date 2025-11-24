@@ -1,0 +1,45 @@
+<%- include('../partials/header', { title: tr('登录', 'Sign In'), activeNav: 'login' }) %>
+
+<div class="row justify-content-center">
+  <div class="col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="h4 fw-bold text-center mb-4"><%= tr('登录校园二手集市', 'Sign in to Campus Marketplace') %></h2>
+        <form method="POST" action="/login">
+          <div class="mb-3">
+            <label class="form-label"><%= tr('用户名', 'Username') %></label>
+            <input
+              type="text"
+              name="username"
+              value="<%= formData.username || '' %>"
+              class="form-control <%= errors.find(e => e.field === 'username') ? 'is-invalid' : '' %>"
+              required
+            />
+            <% const usernameError = errors.find(e => e.field === 'username'); if (usernameError) { %>
+            <div class="invalid-feedback"><%= usernameError.message %></div>
+            <% } %>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><%= tr('密码', 'Password') %></label>
+            <input
+              type="password"
+              name="password"
+              class="form-control <%= errors.find(e => e.field === 'password') ? 'is-invalid' : '' %>"
+              required
+            />
+            <% const passwordError = errors.find(e => e.field === 'password'); if (passwordError) { %>
+            <div class="invalid-feedback"><%= passwordError.message %></div>
+            <% } %>
+          </div>
+          <button class="btn btn-primary w-100"><%= tr('登录', 'Sign In') %></button>
+        </form>
+        <p class="text-center mt-3 small">
+          <%= tr('还没有账号？', "Don't have an account?") %> <a href="/register"><%= tr('立即注册', 'Sign up now') %></a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
+

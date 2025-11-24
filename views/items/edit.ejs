@@ -1,0 +1,80 @@
+<%- include('../partials/header', { title: tr('编辑物品', 'Edit Item'), activeNav: 'items' }) %>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h1 class="h4 fw-bold mb-4"><%= tr('编辑物品信息', 'Edit item details') %></h1>
+        <form action="/items/<%= item._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label class="form-label"><%= tr('标题', 'Title') %></label>
+            <input
+              type="text"
+              name="title"
+              value="<%= formData.title || item.title %>"
+              class="form-control <%= errors.find(e => e.field === 'title') ? 'is-invalid' : '' %>"
+            />
+            <% const titleErr = errors.find(e => e.field === 'title'); if (titleErr) { %>
+            <div class="invalid-feedback"><%= titleErr.message %></div>
+            <% } %>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label"><%= tr('分类', 'Category') %></label>
+              <select name="category" class="form-select <%= errors.find(e => e.field === 'category') ? 'is-invalid' : '' %>">
+                <% categories.forEach((cat) => { %>
+                <option value="<%= cat %>" <%= (formData.category || item.category) === cat ? 'selected' : '' %>><%= categoryLabel(cat) %></option>
+                <% }) %>
+              </select>
+              <% const categoryErr = errors.find(e => e.field === 'category'); if (categoryErr) { %>
+              <div class="invalid-feedback"><%= categoryErr.message %></div>
+              <% } %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label"><%= tr('价格 (¥)', 'Price (¥)') %></label>
+              <input
+                type="number"
+                min="0"
+                step="0.5"
+                name="price"
+                value="<%= formData.price || item.price %>"
+                class="form-control <%= errors.find(e => e.field === 'price') ? 'is-invalid' : '' %>"
+              />
+              <% const priceErr = errors.find(e => e.field === 'price'); if (priceErr) { %>
+              <div class="invalid-feedback"><%= priceErr.message %></div>
+              <% } %>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><%= tr('物品描述', 'Description') %></label>
+            <textarea
+              name="description"
+              rows="4"
+              class="form-control <%= errors.find(e => e.field === 'description') ? 'is-invalid' : '' %>"
+            ><%= formData.description || item.description %></textarea>
+            <% const descErr = errors.find(e => e.field === 'description'); if (descErr) { %>
+            <div class="invalid-feedback"><%= descErr.message %></div>
+            <% } %>
+          </div>
+          <div class="mb-4">
+            <label class="form-label"><%= tr('更换图片（可选）', 'Update image (optional)') %></label>
+            <input type="file" name="image" class="form-control" accept="image/*" />
+            <small class="text-muted"><%= tr('当前图片：', 'Current image:') %></small>
+            <img
+              src="<%= item.imagePath ? '/' + item.imagePath : 'https://placehold.co/600x400?text=No+Image' %>"
+              class="img-fluid rounded mt-2"
+              alt="<%= item.title %>"
+            />
+          </div>
+          <div class="d-flex justify-content-between">
+            <a href="/items" class="btn btn-outline-secondary"><%= tr('返回', 'Back') %></a>
+            <button class="btn btn-primary"><%= tr('保存修改', 'Save changes') %></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
+

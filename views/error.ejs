@@ -1,0 +1,10 @@
+<%- include('partials/header', { title: tr('系统错误', 'Server Error') }) %>
+
+<div class="text-center py-5">
+  <h1 class="display-5 fw-bold mb-3">😵 <%= tr('系统开小差了', 'Something went wrong') %></h1>
+  <p class="text-muted mb-4"><%= message %></p>
+  <a href="/" class="btn btn-primary"><%= tr('返回首页', 'Back to home') %></a>
+</div>
+
+<%- include('partials/footer') %>
+

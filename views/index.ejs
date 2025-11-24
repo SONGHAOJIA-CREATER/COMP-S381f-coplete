@@ -1,0 +1,79 @@
+<%- include('partials/header', { title: tr('欢迎', 'Welcome'), activeNav: 'home' }) %>
+
+<section class="hero-section rounded-4 p-5 mb-5 text-white">
+  <div class="row align-items-center">
+    <div class="col-12">
+      <h1 class="display-5 fw-bold mb-3"><%= tr('把闲置变为价值，让交易发生在校园', 'Give idle items a second life, right on campus') %></h1>
+      <div class="d-flex gap-3">
+        <% if (currentUser) { %>
+        <a href="/items/new" class="btn btn-light btn-lg text-primary fw-semibold"><%= tr('立即发布', 'Post now') %></a>
+        <a href="/items" class="btn btn-outline-light btn-lg"><%= tr('浏览物品', 'Browse items') %></a>
+        <% } else { %>
+        <a href="/register" class="btn btn-light btn-lg text-primary fw-semibold"><%= tr('注册账号', 'Create account') %></a>
+        <a href="/login" class="btn btn-outline-light btn-lg"><%= tr('已有账号? 登录', 'Already joined? Sign in') %></a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mb-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="h4 fw-bold"><%= tr('最新发布', 'Latest listings') %></h2>
+    <a href="/items" class="btn btn-outline-primary btn-sm"><%= tr('更多物品', 'See all') %></a>
+  </div>
+  <div class="row g-4">
+    <% if (recentItems.length === 0) { %>
+    <div class="col-12 text-center text-muted py-5"><%= tr('还没有物品，快去发布第一件吧！', 'No items yet—be the first to post!') %></div>
+    <% } %>
+    <% recentItems.forEach((item) => { %>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <img
+          src="<%= item.imagePath ? '/' + item.imagePath : 'https://placehold.co/600x400?text=No+Image' %>"
+          class="card-img-top object-fit-cover"
+          alt="<%= item.title %>"
+        />
+        <div class="card-body d-flex flex-column">
+          <span class="badge bg-primary-subtle text-primary mb-2"><%= categoryLabel(item.category) %></span>
+          <h5 class="card-title"><%= item.title %></h5>
+          <p class="card-text text-truncate"><%= item.description %></p>
+          <div class="mt-auto">
+            <p class="fw-semibold text-primary fs-5 mb-2">¥ <%= item.price.toFixed(2) %></p>
+            <% if (currentUser) { %>
+            <a href="/items/<%= item._id %>" class="btn btn-outline-primary w-100"><%= tr('查看详情', 'View details') %></a>
+            <% } else { %>
+            <a href="/login" class="btn btn-outline-secondary w-100"><%= tr('登录后查看', 'Sign in to view') %></a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</section>
+
+<section class="bg-light rounded-4 p-4 mb-5">
+  <div class="row align-items-center">
+    <div class="col-md-7">
+      <h3 class="fw-bold mb-3"><%= tr('RESTful API 随时调用', 'RESTful APIs ready for use') %></h3>
+      <p class="text-muted">
+        <%= tr(
+          '/api/items 提供标准 CRUD，额外增加 “按分类查询” 和 “热门 TOP10” 两个原创接口，方便做移动端或小程序扩展。',
+          'Standard CRUD plus category and hot-top10 endpoints keep mobile or mini-app extensions simple.'
+        ) %>
+      </p>
+    </div>
+    <div class="col-md-5">
+      <pre class="bg-dark text-white rounded-3 p-3 small">
+curl -X GET https://your-url.onrender.com/api/items/hot/top10
+curl -X POST -H "Content-Type: application/json" \
+  -d "{ \"title\": \"Java Basics\", \"category\": \"书籍\", \"price\": 25 }" \
+  https://your-url.onrender.com/api/items
+      </pre>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+

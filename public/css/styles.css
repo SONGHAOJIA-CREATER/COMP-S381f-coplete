@@ -1,0 +1,48 @@
+:root {
+  --brand-primary: #5c6ac4;
+  --brand-secondary: #ffb703;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f5f7fb;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, var(--brand-primary), #8d9afe);
+  box-shadow: 0 25px 80px -35px rgba(92, 106, 196, 0.9);
+}
+
+.stats-card ul li {
+  margin-bottom: 0.5rem;
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
+
+main.container {
+  flex: 1 0 auto;
+}
+
+.card {
+  border: none;
+  border-radius: 1rem;
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+pre {
+  margin: 0;
+  font-size: 0.85rem;
+}
+

@@ -1,0 +1,57 @@
+<%- include('../partials/header', { title: tr('注册', 'Sign Up'), activeNav: 'register' }) %>
+
+<div class="row justify-content-center">
+  <div class="col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="h4 fw-bold text-center mb-4"><%= tr('创建账号', 'Create an account') %></h2>
+        <form method="POST" action="/register">
+          <div class="mb-3">
+            <label class="form-label"><%= tr('用户名', 'Username') %></label>
+            <input
+              type="text"
+              name="username"
+              value="<%= formData.username || '' %>"
+              class="form-control <%= errors.find(e => e.field === 'username') ? 'is-invalid' : '' %>"
+              required
+            />
+            <% const usernameError = errors.find(e => e.field === 'username'); if (usernameError) { %>
+            <div class="invalid-feedback"><%= usernameError.message %></div>
+            <% } %>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><%= tr('密码', 'Password') %></label>
+            <input
+              type="password"
+              name="password"
+              class="form-control <%= errors.find(e => e.field === 'password') ? 'is-invalid' : '' %>"
+              required
+            />
+            <% const passwordError = errors.find(e => e.field === 'password'); if (passwordError) { %>
+            <div class="invalid-feedback"><%= passwordError.message %></div>
+            <% } %>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><%= tr('确认密码', 'Confirm password') %></label>
+            <input
+              type="password"
+              name="confirmPassword"
+              class="form-control <%= errors.find(e => e.field === 'confirmPassword') ? 'is-invalid' : '' %>"
+              required
+            />
+            <% const confirmError = errors.find(e => e.field === 'confirmPassword'); if (confirmError) { %>
+            <div class="invalid-feedback"><%= confirmError.message %></div>
+            <% } %>
+          </div>
+          <button class="btn btn-primary w-100"><%= tr('立即注册', 'Sign Up') %></button>
+        </form>
+        <p class="text-center mt-3 small">
+          <%= tr('已经有账号？', 'Already have an account?') %> <a href="/login"><%= tr('前往登录', 'Go to sign in') %></a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
+
