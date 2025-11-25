@@ -53,27 +53,6 @@
   </div>
 </section>
 
-<section class="bg-light rounded-4 p-4 mb-5">
-  <div class="row align-items-center">
-    <div class="col-md-7">
-      <h3 class="fw-bold mb-3"><%= tr('RESTful API 随时调用', 'RESTful APIs ready for use') %></h3>
-      <p class="text-muted">
-        <%= tr(
-          '/api/items 提供标准 CRUD，额外增加 “按分类查询” 和 “热门 TOP10” 两个原创接口，方便做移动端或小程序扩展。',
-          'Standard CRUD plus category and hot-top10 endpoints keep mobile or mini-app extensions simple.'
-        ) %>
-      </p>
-    </div>
-    <div class="col-md-5">
-      <pre class="bg-dark text-white rounded-3 p-3 small">
-curl -X GET https://your-url.onrender.com/api/items/hot/top10
-curl -X POST -H "Content-Type: application/json" \
-  -d "{ \"title\": \"Java Basics\", \"category\": \"书籍\", \"price\": 25 }" \
-  https://your-url.onrender.com/api/items
-      </pre>
-    </div>
-  </div>
-</section>
-
 <%- include('partials/footer') %>
+
 
